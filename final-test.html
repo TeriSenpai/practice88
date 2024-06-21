@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финальный Тест на Тему Выбора Профессии</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question h2 {
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            background-color: #d5101c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Финальный Тест</h1>
+
+    <div class="container">
+        <div class="question" data-question="1">
+            <h2>1. Какой тип работы вам нравится больше всего?</h2>
+            <div class="options">
+                <label><input type="radio" name="question1" value="1"> Работа с людьми</label>
+                <label><input type="radio" name="question1" value="2"> Работа с техникой</label>
+                <label><input type="radio" name="question1" value="3"> Творческая работа</label>
+                <label><input type="radio" name="question1" value="4"> Аналитическая работа</label>
+            </div>
+        </div>
+
+        <div class="question" data-question="2">
+            <h2>2. Что вас больше всего мотивирует?</h2>
+            <div class="options">
+                <label><input type="radio" name="question2" value="1"> Помощь другим</label>
+                <label><input type="radio" name="question2" value="2"> Решение технических задач</label>
+                <label><input type="radio" name="question2" value="3"> Самовыражение</label>
+                <label><input type="radio" name="question2" value="4"> Достижение целей</label>
+            </div>
+        </div>
+
+        <div class="question" data-question="3">
+            <h2>3. Как вы проводите свободное время?</h2>
+            <div class="options">
+                <label><input type="radio" name="question3" value="1"> Общение с друзьями</label>
+                <label><input type="radio" name="question3" value="2"> Изучение новых технологий</label>
+                <label><input type="radio" name="question3" value="3"> Рисование или музыка</label>
+                <label><input type="radio" name="question3" value="4"> Чтение и анализ</label>
+            </div>
+        </div>
+
+        <button class="submit-btn" onclick="calculateResult()">Показать результат</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateResult() {
+            const questions = document.querySelectorAll('.question');
+            let scores = { people: 0, tech: 0, creative: 0, analytical: 0 };
+
+            questions.forEach((question) => {
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                if (selectedOption) {
+                    switch (selectedOption.value) {
+                        case '1':
+                            scores.people++;
+                            break;
+                        case '2':
+                            scores.tech++;
+                            break;
+                        case '3':
+                            scores.creative++;
+                            break;
+                        case '4':
+                            scores.analytical++;
+                            break;
+                    }
+                }
+            });
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+
+            const maxScore = Math.max(scores.people, scores.tech, scores.creative, scores.analytical);
+            let resultText = '';
+
+            if (maxScore === scores.people) {
+                resultText = 'Вам подходит профессия, связанная с работой с людьми, например, психолог или преподаватель.';
+            } else if (maxScore === scores.tech) {
+                resultText = 'Вам подходит профессия, связанная с техникой, например, инженер или программист.';
+            } else if (maxScore === scores.creative) {
+                resultText = 'Вам подходит творческая профессия, например, дизайнер или художник.';
+            } else if (maxScore === scores.analytical) {
+                resultText = 'Вам подходит аналитическая профессия, например, аналитик или научный исследователь.';
+            }
+
+            resultDiv.textContent = resultText;
+        }
+    </script>
+
+</body>
+</html>
